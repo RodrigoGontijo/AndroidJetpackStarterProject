@@ -9,7 +9,10 @@
         android:label="DogsListFragment" >
         <action
             android:id="@+id/actionDetailFragment"
-            app:destination="@id/dogsDetailsFragment" />
+            app:destination="@+id/dogsDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false" />
     </fragment>
     <fragment
         android:id="@+id/dogsDetailsFragment"
@@ -17,6 +20,16 @@
         android:label="DogsDetailsFragment" >
         <action
             android:id="@+id/actionListFragment"
-            app:destination="@id/dogsListFragment" />
+            app:destination="@id/dogsListFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/dogsListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false" />
+
+        <argument
+            android:name="dogUnid"
+            android:defaultValue="0"
+            app:argType="integer"/>
     </fragment>
 </navigation>
