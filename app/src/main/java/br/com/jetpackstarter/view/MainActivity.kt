@@ -1,7 +1,8 @@
-package br.com.jetpackstarter
+package br.com.jetpackstarter.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import br.com.jetpackstarter.R
 
 class MainActivity : AppCompatActivity() {
 
