@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/dog_navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/dog_navigation"
+    app:startDestination="@id/dogsListFragment">
 
+    <fragment
+        android:id="@+id/dogsListFragment"
+        android:name="br.com.jetpackstarter.view.DogsListFragment"
+        android:label="DogsListFragment" >
+        <action
+            android:id="@+id/actionDetailFragment"
+            app:destination="@id/dogsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dogsDetailsFragment"
+        android:name="br.com.jetpackstarter.view.DogsDetailsFragment"
+        android:label="DogsDetailsFragment" >
+        <action
+            android:id="@+id/actionListFragment"
+            app:destination="@id/dogsListFragment" />
+    </fragment>
 </navigation>
