@@ -3,9 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.DogsDetailsFragment">
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/dogImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@mipmap/ic_dogs"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/dogName"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/dogImage"
+            android:text="Dog name"
+            style="@style/Title"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/dogPorpouse"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/dogName"
+            android:text="Dog porpouse"
+            style="@style/Text"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/dogTemperament"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/dogPorpouse"
+            android:text="Dog temperament"
+            style="@style/Text"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"/>
+
+        <TextView
+            android:id="@+id/dogLifespan"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/dogTemperament"
+            android:text="Dog lifespan"
+            style="@style/Text"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="4dp"/>
+
+    </RelativeLayout>
 </layout>
