@@ -4,6 +4,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="125dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -11,7 +12,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:src="@mipmap/ic_dogs_round"/>
+            android:padding="4dp" />
 
         <LinearLayout
             android:layout_width="0dp"
