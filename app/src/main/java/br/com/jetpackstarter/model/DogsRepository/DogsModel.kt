@@ -1,4 +1,4 @@
-package br.com.jetpackstarter.model
+package br.com.jetpackstarter.model.DogsRepository
 
 import com.google.gson.annotations.SerializedName
 

@@ -2,16 +2,18 @@ package br.com.jetpackstarter.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.jetpackstarter.model.DogBreed
-import br.com.jetpackstarter.model.DogsApiService
+import br.com.jetpackstarter.model.DogsRepository.DogBreed
+import br.com.jetpackstarter.model.DogsRepository.Service.DogsApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
-class ListViewModel : ViewModel() {
+class ListViewModel(
+    private val dogsService: DogsApiService
+) : ViewModel() {
 
-    private val dogsService = DogsApiService()
+
     private val disposable = CompositeDisposable()
 
     val dogs = MutableLiveData<List<DogBreed>>()

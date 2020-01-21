@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import br.com.jetpackstarter.R
-import br.com.jetpackstarter.model.DogBreed
+import br.com.jetpackstarter.model.DogsRepository.DogBreed
 import br.com.jetpackstarter.util.getProgressDrawable
 import br.com.jetpackstarter.util.loadImage
 import kotlinx.android.synthetic.main.item_dog.view.*

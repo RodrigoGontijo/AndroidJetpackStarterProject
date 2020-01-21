@@ -12,8 +12,10 @@ import androidx.navigation.Navigation
 
 import br.com.jetpackstarter.R
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
+import br.com.jetpackstarter.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_dogs_details.*
 import kotlinx.android.synthetic.main.fragment_dogs_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
@@ -21,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_dogs_list.*
 class DogsDetailsFragment : Fragment() {
 
     private var dogUuid = 0
-    private lateinit var viewModel: DetailDogViewModel
+    private val viewModel: DetailDogViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,7 +36,6 @@ class DogsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(DetailDogViewModel::class.java)
         viewModel.fetch()
 
         arguments?.let {

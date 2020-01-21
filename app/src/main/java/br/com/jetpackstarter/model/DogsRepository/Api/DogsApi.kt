@@ -1,5 +1,6 @@
-package br.com.jetpackstarter.model
+package br.com.jetpackstarter.model.DogsRepository.Api
 
+import br.com.jetpackstarter.model.DogsRepository.DogBreed
 import io.reactivex.Single
 import retrofit2.http.GET
 

@@ -10,17 +10,17 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import br.com.jetpackstarter.R
 import br.com.jetpackstarter.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_dogs_list.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass.
  */
 class DogsListFragment : Fragment() {
 
-    private lateinit var viewModel : ListViewModel
+    private val viewModel: ListViewModel by viewModel()
     private val dogsListAdapter = DogsListAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -34,7 +34,6 @@ class DogsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.refresh()
 
         dogsList.apply {
