@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.jetpackstarter.R
-import br.com.jetpackstarter.viewmodel.ListViewModel
+import br.com.jetpackstarter.viewmodel.DogsListViewModel
 import kotlinx.android.synthetic.main.fragment_dogs_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -20,7 +18,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class DogsListFragment : Fragment() {
 
-    private val viewModel: ListViewModel by viewModel()
+    private val viewModel: DogsListViewModel by viewModel()
     private val dogsListAdapter = DogsListAdapter(arrayListOf())
 
     override fun onCreateView(

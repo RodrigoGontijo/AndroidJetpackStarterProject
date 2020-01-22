@@ -7,14 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 
 import br.com.jetpackstarter.R
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
-import br.com.jetpackstarter.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_dogs_details.*
-import kotlinx.android.synthetic.main.fragment_dogs_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
