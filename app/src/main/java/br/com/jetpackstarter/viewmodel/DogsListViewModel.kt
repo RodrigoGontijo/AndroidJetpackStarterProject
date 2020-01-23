@@ -14,9 +14,7 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class DogsListViewModel(private val dogsService: DogsApiService, private val dogDao: DogDao) : ViewModel(){
-
-    private val disposable = CompositeDisposable()
+class DogsListViewModel(private val dogsService: DogsApiService, private val dogDao: DogDao) : BaseViewModel(){
 
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
@@ -70,8 +68,5 @@ class DogsListViewModel(private val dogsService: DogsApiService, private val dog
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
+
 }

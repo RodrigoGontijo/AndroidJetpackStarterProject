@@ -11,4 +11,11 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class BaseViewModel() : ViewModel() {
 
+    val disposable = CompositeDisposable()
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
+
 }

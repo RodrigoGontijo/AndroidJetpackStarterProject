@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.jetpackstarter.model.DogsRepository.DogBreed
 
-class DetailDogViewModel : ViewModel() {
+class DetailDogViewModel : BaseViewModel() {
     val dogLiveData = MutableLiveData<DogBreed>()
 
 
