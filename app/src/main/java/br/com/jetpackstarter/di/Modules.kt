@@ -1,12 +1,16 @@
 package br.com.jetpackstarter.di
 
 
+import androidx.room.Room
 import br.com.jetpackstarter.model.DogsRepository.Api.DogsApi
+import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
+import br.com.jetpackstarter.model.DogsRepository.DogDatabase
 import br.com.jetpackstarter.model.DogsRepository.DogsConstants.Companion.BASE_URL
 import br.com.jetpackstarter.model.DogsRepository.Service.DogsApiService
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import br.com.jetpackstarter.viewmodel.DogsListViewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.ext.koin.androidContext
 
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -18,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object Modules{
 
     private val viewModelModule = module {
-        viewModel { DogsListViewModel(get(), androidApplication()) }
+        viewModel { DogsListViewModel(get(), get() as DogDao) }
         viewModel { DetailDogViewModel() }
     }
 
@@ -41,10 +45,22 @@ object Modules{
         single { DogsApiService(get()) }
     }
 
+    private val dbModule = module {
+
+        single {
+            Room.databaseBuilder(androidContext(), DogDatabase::class.java,
+                "dogdatabase").build()
+        }
+
+        single { get<DogDatabase>().dogDao }
+
+    }
+
     val all: List<Module> = listOf(
         viewModelModule,
         DogsApiModule,
-        repositoryModule
+        repositoryModule,
+        dbModule
     )
 
 }
