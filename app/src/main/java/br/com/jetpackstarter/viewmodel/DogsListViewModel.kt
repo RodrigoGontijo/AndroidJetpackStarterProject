@@ -1,9 +1,12 @@
 package br.com.jetpackstarter.viewmodel
 
 import android.app.Application
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.jetpackstarter.DogsConstants.Companion.PREFS_TIME
 import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
 import br.com.jetpackstarter.model.DogsRepository.DogBreed
 import br.com.jetpackstarter.model.DogsRepository.DogDatabase
@@ -14,7 +17,10 @@ import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
-class DogsListViewModel(private val dogsService: DogsApiService, private val dogDao: DogDao) : BaseViewModel(){
+class DogsListViewModel(private val dogsService: DogsApiService,
+                        private val dogDao: DogDao,
+                        private val timeSharedPreferences: SharedPreferences
+) : BaseViewModel(){
 
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
@@ -66,6 +72,8 @@ class DogsListViewModel(private val dogsService: DogsApiService, private val dog
             }
             dogsRetrieved(list)
         }
+
+        timeSharedPreferences.edit(commit = true){putLong(PREFS_TIME, System.nanoTime()) }
     }
 
 

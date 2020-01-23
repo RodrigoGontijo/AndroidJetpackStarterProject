@@ -1,11 +1,14 @@
 package br.com.jetpackstarter.di
 
 
+import android.app.Application
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
 import br.com.jetpackstarter.model.DogsRepository.Api.DogsApi
 import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
 import br.com.jetpackstarter.model.DogsRepository.DogDatabase
-import br.com.jetpackstarter.model.DogsRepository.DogsConstants.Companion.BASE_URL
+import br.com.jetpackstarter.DogsConstants.Companion.BASE_URL
 import br.com.jetpackstarter.model.DogsRepository.Service.DogsApiService
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import br.com.jetpackstarter.viewmodel.DogsListViewModel
@@ -14,6 +17,7 @@ import org.koin.android.ext.koin.androidContext
 
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -21,8 +25,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Modules{
 
+    private const val PREF_TIME = "PrefsTime"
+
+    private fun provideTimePreferences(app: Application): SharedPreferences =
+        app.getSharedPreferences(PREF_TIME, Context.MODE_PRIVATE)
+
     private val viewModelModule = module {
-        viewModel { DogsListViewModel(get(), get() as DogDao) }
+        viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs"))) }
         viewModel { DetailDogViewModel() }
     }
 
@@ -56,11 +65,18 @@ object Modules{
 
     }
 
+    val preferencesModule = module {
+        single(named("timePrefs")) { provideTimePreferences(androidApplication()) }
+    }
+
+
+
     val all: List<Module> = listOf(
         viewModelModule,
         DogsApiModule,
         repositoryModule,
-        dbModule
+        dbModule,
+        preferencesModule
     )
 
 }
