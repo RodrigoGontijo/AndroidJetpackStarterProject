@@ -2,6 +2,7 @@ package br.com.jetpackstarter.viewmodel
 
 import android.app.Application
 import android.content.SharedPreferences
+import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,12 +23,30 @@ class DogsListViewModel(private val dogsService: DogsApiService,
                         private val timeSharedPreferences: SharedPreferences
 ) : BaseViewModel(){
 
+    private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
+
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
+        val updatedTime = timeSharedPreferences.getLong(PREFS_TIME,0)
+        if(updatedTime != null && updatedTime !=0L && System.nanoTime() - updatedTime < refreshTime){
+            fetchFromDatabase()
+        }else{
+            fetchFromRemote()
+        }
+    }
+
+    fun refreshBypassCache(){
         fetchFromRemote()
+    }
+
+    private fun fetchFromDatabase(){
+        viewModelScope.launch {
+            val dogs = dogDao.getAllDogs()
+            dogsRetrieved(dogs)
+        }
     }
 
     private fun fetchFromRemote() {
@@ -73,8 +92,6 @@ class DogsListViewModel(private val dogsService: DogsApiService,
             dogsRetrieved(list)
         }
 
-        timeSharedPreferences.edit(commit = true){putLong(PREFS_TIME, System.nanoTime()) }
+        timeSharedPreferences.edit(commit = true){ putLong(PREFS_TIME, System.nanoTime()) }
     }
-
-
 }

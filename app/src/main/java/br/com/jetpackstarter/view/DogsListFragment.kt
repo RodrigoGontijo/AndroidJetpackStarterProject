@@ -43,14 +43,20 @@ class DogsListFragment : Fragment() {
             dogsList.visibility = View.GONE
             listError.visibility = View.GONE
             loadingView.visibility = View.VISIBLE
-            viewModel.refresh()
+            viewModel.refreshBypassCache()
             refreshLayout.isRefreshing = false
         }
 
         observeVielModel()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        removeObservers()
+    }
+
     fun observeVielModel(){
+
         viewModel.dogs.observe(this, Observer {
             it?.let {
                 dogsList.visibility = View.VISIBLE
@@ -75,5 +81,11 @@ class DogsListFragment : Fragment() {
                 }
             }
         })
+    }
+
+    fun removeObservers(){
+        viewModel.loading.removeObservers(this)
+        viewModel.dogsLoadError.removeObservers(this)
+        viewModel.dogs.removeObservers(this)
     }
 }
