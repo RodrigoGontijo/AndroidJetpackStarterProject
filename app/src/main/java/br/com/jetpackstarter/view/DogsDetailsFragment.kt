@@ -9,8 +9,12 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 
 import br.com.jetpackstarter.R
+import br.com.jetpackstarter.util.getProgressDrawable
+import br.com.jetpackstarter.util.loadImage
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import kotlinx.android.synthetic.main.fragment_dogs_details.*
+import kotlinx.android.synthetic.main.fragment_dogs_list.*
+import kotlinx.android.synthetic.main.item_dog.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 /**
@@ -32,10 +36,9 @@ class DogsDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetch()
-
         arguments?.let {
             dogUuid = DogsDetailsFragmentArgs.fromBundle(it).dogUnid
+            viewModel.fetch(dogUuid)
         }
 
         observeViewlModel()
@@ -48,6 +51,7 @@ class DogsDetailsFragment : Fragment() {
                 dogTemperament.text = dog.temperature
                 dogPorpouse.text = dog.bredFor
                 dogLifespan.text = dog.lifeSpam
+                dogImage.loadImage(dog.imageUrl, getProgressDrawable(dogImage.context))
             }
         })
     }

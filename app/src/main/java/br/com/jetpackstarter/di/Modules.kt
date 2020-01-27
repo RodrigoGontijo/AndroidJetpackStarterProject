@@ -32,7 +32,7 @@ object Modules{
 
     private val viewModelModule = module {
         viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs"))) }
-        viewModel { DetailDogViewModel() }
+        viewModel { DetailDogViewModel(get() as DogDao) }
     }
 
     private val DogsApiModule = module {
