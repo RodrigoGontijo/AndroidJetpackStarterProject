@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 
 import br.com.jetpackstarter.R
+import br.com.jetpackstarter.databinding.FragmentDogsDetailsBinding
+import br.com.jetpackstarter.databinding.ItemDogBinding
 import br.com.jetpackstarter.util.getProgressDrawable
 import br.com.jetpackstarter.util.loadImage
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
@@ -22,6 +25,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
  */
 class DogsDetailsFragment : Fragment() {
 
+    protected lateinit var binding: FragmentDogsDetailsBinding
     private var dogUuid = 0
     private val viewModel: DetailDogViewModel by viewModel()
 
@@ -30,7 +34,8 @@ class DogsDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dogs_details, container, false)
+        binding = DataBindingUtil.inflate<FragmentDogsDetailsBinding>(inflater, R.layout.fragment_dogs_details, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,11 +52,7 @@ class DogsDetailsFragment : Fragment() {
     private fun observeViewlModel(){
         viewModel.dogLiveData.observe(this, Observer { dog ->
             dog?.let{
-                dogName.text = dog.dogBreed
-                dogTemperament.text = dog.temperature
-                dogPorpouse.text = dog.bredFor
-                dogLifespan.text = dog.lifeSpam
-                dogImage.loadImage(dog.imageUrl, getProgressDrawable(dogImage.context))
+                binding.dogDetail = dog
             }
         })
     }

@@ -1,19 +1,14 @@
 package br.com.jetpackstarter.viewmodel
 
-import android.app.Application
 import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.core.content.edit
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.jetpackstarter.DogsConstants.Companion.PREFS_TIME
-import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
-import br.com.jetpackstarter.model.DogsRepository.DogBreed
-import br.com.jetpackstarter.model.DogsRepository.DogDatabase
-import br.com.jetpackstarter.model.DogsRepository.Service.DogsApiService
+import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
+import br.com.jetpackstarter.model.dogsRepository.DogBreed
+import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch

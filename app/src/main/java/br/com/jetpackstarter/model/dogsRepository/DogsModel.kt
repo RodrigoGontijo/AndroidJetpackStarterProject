@@ -1,4 +1,4 @@
-package br.com.jetpackstarter.model.DogsRepository
+package br.com.jetpackstarter.model.dogsRepository
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

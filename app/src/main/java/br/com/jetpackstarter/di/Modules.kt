@@ -5,11 +5,11 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
-import br.com.jetpackstarter.model.DogsRepository.Api.DogsApi
-import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
-import br.com.jetpackstarter.model.DogsRepository.DogDatabase
+import br.com.jetpackstarter.model.dogsRepository.Api.DogsApi
+import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
+import br.com.jetpackstarter.model.dogsRepository.DogDatabase
 import br.com.jetpackstarter.DogsConstants.Companion.BASE_URL
-import br.com.jetpackstarter.model.DogsRepository.Service.DogsApiService
+import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import br.com.jetpackstarter.viewmodel.DogsListViewModel
 import org.koin.android.ext.koin.androidApplication

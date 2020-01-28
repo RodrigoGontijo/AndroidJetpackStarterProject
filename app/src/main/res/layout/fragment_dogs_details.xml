@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="dogDetail"
+            type="br.com.jetpackstarter.model.dogsRepository.DogBreed" />
+    </data>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:src="@mipmap/ic_dogs"
+            android:imageUrl="@{dogDetail.imageUrl}"
             android:scaleType="fitCenter"/>
 
         <TextView
@@ -21,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_below="@+id/dogImage"
-            android:text="Dog name"
+            android:text="@{dogDetail.dogBreed}"
             style="@style/Title"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"/>
@@ -31,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_below="@+id/dogName"
-            android:text="Dog porpouse"
+            android:text="@{dogDetail.bredFor}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"/>
@@ -41,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_below="@+id/dogPorpouse"
-            android:text="Dog temperament"
+            android:text="@{dogDetail.temperature}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"/>
@@ -51,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_below="@+id/dogTemperament"
-            android:text="Dog lifespan"
+            android:text="@{dogDetail.lifeSpam}"
             style="@style/Text"
             android:layout_centerHorizontal="true"
             android:layout_margin="4dp"/>

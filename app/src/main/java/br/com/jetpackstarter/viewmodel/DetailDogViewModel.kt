@@ -1,10 +1,9 @@
 package br.com.jetpackstarter.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.jetpackstarter.model.DogsRepository.Dao.DogDao
-import br.com.jetpackstarter.model.DogsRepository.DogBreed
+import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
+import br.com.jetpackstarter.model.dogsRepository.DogBreed
 import kotlinx.coroutines.launch
 
 class DetailDogViewModel(

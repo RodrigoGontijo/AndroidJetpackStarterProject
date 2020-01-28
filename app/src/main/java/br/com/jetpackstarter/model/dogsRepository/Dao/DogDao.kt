@@ -1,9 +1,9 @@
-package br.com.jetpackstarter.model.DogsRepository.Dao
+package br.com.jetpackstarter.model.dogsRepository.Dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import br.com.jetpackstarter.model.DogsRepository.DogBreed
+import br.com.jetpackstarter.model.dogsRepository.DogBreed
 
 @Dao
 interface DogDao {
