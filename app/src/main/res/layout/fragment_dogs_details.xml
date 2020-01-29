@@ -7,15 +7,21 @@
         <variable
             name="dogDetail"
             type="br.com.jetpackstarter.model.dogsRepository.DogBreed" />
+
+        <variable
+            name="palette"
+            type="br.com.jetpackstarter.model.dogsRepository.DogPalette" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@{palette.color}"
         tools:context=".view.DogsDetailsFragment">
 
         <ImageView
             android:id="@+id/dogImage"
+            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
