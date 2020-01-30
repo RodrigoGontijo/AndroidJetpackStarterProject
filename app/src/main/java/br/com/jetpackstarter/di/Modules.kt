@@ -10,6 +10,7 @@ import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
 import br.com.jetpackstarter.model.dogsRepository.DogDatabase
 import br.com.jetpackstarter.DogsConstants.Companion.BASE_URL
 import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
+import br.com.jetpackstarter.notification.NotificationsHelper
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import br.com.jetpackstarter.viewmodel.DogsListViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -31,7 +32,7 @@ object Modules{
         app.getSharedPreferences(PREF_TIME, Context.MODE_PRIVATE)
 
     private val viewModelModule = module {
-        viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs"))) }
+        viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs")), get()) }
         viewModel { DetailDogViewModel(get() as DogDao) }
     }
 
@@ -52,6 +53,10 @@ object Modules{
 
     private val repositoryModule = module {
         single { DogsApiService(get()) }
+    }
+
+    private val NotificationsHelper = module {
+        single { NotificationsHelper(get()) }
     }
 
     private val dbModule = module {
@@ -76,7 +81,8 @@ object Modules{
         DogsApiModule,
         repositoryModule,
         dbModule,
-        preferencesModule
+        preferencesModule,
+        NotificationsHelper
     )
 
 }

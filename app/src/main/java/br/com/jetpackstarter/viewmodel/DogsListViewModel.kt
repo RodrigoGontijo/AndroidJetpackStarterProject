@@ -8,6 +8,7 @@ import br.com.jetpackstarter.DogsConstants.Companion.PREFS_TIME
 import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
 import br.com.jetpackstarter.model.dogsRepository.DogBreed
 import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
+import br.com.jetpackstarter.notification.NotificationsHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 
 class DogsListViewModel(private val dogsService: DogsApiService,
                         private val dogDao: DogDao,
-                        private val timeSharedPreferences: SharedPreferences
+                        private val timeSharedPreferences: SharedPreferences,
+                        private val notificationsHelper: NotificationsHelper
 ) : BaseViewModel(){
 
     private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
@@ -53,6 +55,7 @@ class DogsListViewModel(private val dogsService: DogsApiService,
                 .subscribeWith(object: DisposableSingleObserver<List<DogBreed>>(){
                     override fun onSuccess(dogsList: List<DogBreed>) {
                         storeDogsLocal(dogsList)
+                        notificationsHelper.createNotification()
                     }
 
                     override fun onError(e: Throwable) {
