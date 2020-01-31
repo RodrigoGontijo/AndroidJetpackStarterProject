@@ -11,11 +11,12 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.jetpackstarter"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -36,6 +37,7 @@ def roomVersion = '2.1.0-rc01'
 def koinVersion = '2.0.1'
 def navVersion = '2.1.0-alpha05'
 def preferencesVersion = '1.0.0'
+def firebaseVersion = '17.2.2'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -85,6 +87,10 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koinVersion"
     // Koin Android Experimental features
     implementation "org.koin:koin-android-ext:$koinVersion"
+
+    implementation "com.google.firebase:firebase-core:$firebaseVersion"
+
+    implementation "com.android.support:multidex:1.0.3"
 
 
     testImplementation 'junit:junit:4.12'
