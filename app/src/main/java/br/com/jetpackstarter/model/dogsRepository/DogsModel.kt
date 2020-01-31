@@ -20,7 +20,7 @@ data class DogBreed(
     @SerializedName("life_span")
     val lifeSpam: String?,
 
-    @ColumnInfo(name = "breed_breed_group")
+    @ColumnInfo(name = "breed_group")
     @SerializedName("breed_group")
     val breedGroup: String?,
 
