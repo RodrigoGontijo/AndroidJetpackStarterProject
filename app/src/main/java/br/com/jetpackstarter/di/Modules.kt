@@ -4,6 +4,7 @@ package br.com.jetpackstarter.di
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import androidx.room.Room
 import br.com.jetpackstarter.model.dogsRepository.Api.DogsApi
 import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
@@ -29,7 +30,7 @@ object Modules{
     private const val PREF_TIME = "PrefsTime"
 
     private fun provideTimePreferences(app: Application): SharedPreferences =
-        app.getSharedPreferences(PREF_TIME, Context.MODE_PRIVATE)
+        PreferenceManager.getDefaultSharedPreferences(app.applicationContext)
 
     private val viewModelModule = module {
         viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs")), get()) }
