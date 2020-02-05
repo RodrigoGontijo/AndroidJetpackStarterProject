@@ -12,6 +12,7 @@ import br.com.jetpackstarter.model.dogsRepository.DogDatabase
 import br.com.jetpackstarter.DogsConstants.Companion.BASE_URL
 import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
 import br.com.jetpackstarter.notification.NotificationsHelper
+import br.com.jetpackstarter.util.SharedPreferencesHelper
 import br.com.jetpackstarter.viewmodel.DetailDogViewModel
 import br.com.jetpackstarter.viewmodel.DogsListViewModel
 import org.koin.android.ext.koin.androidApplication
@@ -27,13 +28,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Modules{
 
-    private const val PREF_TIME = "PrefsTime"
-
-    private fun provideTimePreferences(app: Application): SharedPreferences =
-        PreferenceManager.getDefaultSharedPreferences(app.applicationContext)
-
     private val viewModelModule = module {
-        viewModel { DogsListViewModel(get(), get() as DogDao, get(named("timePrefs")), get()) }
+        viewModel { DogsListViewModel(get(), get() as DogDao, get(), get()) }
         viewModel { DetailDogViewModel(get() as DogDao) }
     }
 
@@ -57,7 +53,7 @@ object Modules{
     }
 
     private val NotificationsHelper = module {
-        single { NotificationsHelper(get()) }
+        single { NotificationsHelper(androidContext()) }
     }
 
     private val dbModule = module {
@@ -71,8 +67,8 @@ object Modules{
 
     }
 
-    val preferencesModule = module {
-        single(named("timePrefs")) { provideTimePreferences(androidApplication()) }
+    private val preferencesModule = module {
+        single { SharedPreferencesHelper(androidContext()) }
     }
 
 
@@ -85,5 +81,4 @@ object Modules{
         preferencesModule,
         NotificationsHelper
     )
-
 }

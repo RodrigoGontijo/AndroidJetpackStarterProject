@@ -25,6 +25,11 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+        animationsDisabled = true
+    }
+
     dataBinding.enabled = true
 }
 
@@ -38,6 +43,7 @@ def koinVersion = '2.0.1'
 def navVersion = '2.1.0-alpha05'
 def preferencesVersion = '1.0.0'
 def firebaseVersion = '17.2.2'
+def mockitoVersion = '3.2.4'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -94,6 +100,13 @@ dependencies {
 
 
     testImplementation 'junit:junit:4.12'
+    testImplementation "org.koin:koin-test:$koinVersion"
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.0")
+    testImplementation("io.kotlintest:kotlintest-extensions-koin:3.4.0")
+    testImplementation "android.arch.core:core-testing:1.1.1"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    androidTestImplementation "org.koin:koin-test:$koinVersion"
 }

@@ -10,6 +10,7 @@ import br.com.jetpackstarter.model.dogsRepository.Dao.DogDao
 import br.com.jetpackstarter.model.dogsRepository.DogBreed
 import br.com.jetpackstarter.model.dogsRepository.Service.DogsApiService
 import br.com.jetpackstarter.notification.NotificationsHelper
+import br.com.jetpackstarter.util.SharedPreferencesHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
@@ -18,20 +19,21 @@ import java.lang.NumberFormatException
 
 class DogsListViewModel(private val dogsService: DogsApiService,
                         private val dogDao: DogDao,
-                        private val timeSharedPreferences: SharedPreferences,
+                        private val sharedPreferencesHelper: SharedPreferencesHelper,
                         private val notificationsHelper: NotificationsHelper
 ) : BaseViewModel(){
 
     private var refreshTime = 5 * 60 * 1000 * 1000 * 1000L
-    private var  CACHE_DURATION = "PrefsCacheDuration"
 
     val dogs = MutableLiveData<List<DogBreed>>()
     val dogsLoadError = MutableLiveData<Boolean>()
     val loading = MutableLiveData<Boolean>()
 
+
     fun refresh() {
+        sharedPreferencesHelper.initTimeSharedPreferences()
         checkCacheDuration()
-        val updatedTime = timeSharedPreferences.getLong(PREFS_TIME,0)
+        val updatedTime = sharedPreferencesHelper.getUpdateTimeDuration()
         if(updatedTime != null && updatedTime !=0L && System.nanoTime() - updatedTime < refreshTime){
             fetchFromDatabase()
         }else{
@@ -50,7 +52,7 @@ class DogsListViewModel(private val dogsService: DogsApiService,
         }
     }
 
-    private fun fetchFromRemote() {
+    fun fetchFromRemote() {
         loading.value = true
         disposable.add(
             dogsService.getDogs()
@@ -72,7 +74,7 @@ class DogsListViewModel(private val dogsService: DogsApiService,
         )
     }
 
-    private suspend fun dogsRetrieved(dogsList: List<DogBreed>) {
+    suspend fun dogsRetrieved(dogsList: List<DogBreed>) {
         viewModelScope.launch {
             dogDao.getAllDogs()
             val result = dogDao.getAllDogs()
@@ -94,11 +96,11 @@ class DogsListViewModel(private val dogsService: DogsApiService,
             dogsRetrieved(list)
         }
 
-        timeSharedPreferences.edit(commit = true){ putLong(PREFS_TIME, System.nanoTime()) }
+        sharedPreferencesHelper.setUpdateTime()
     }
 
     private fun checkCacheDuration(){
-        val cacheTime  = timeSharedPreferences.getString(CACHE_DURATION, "")
+        val cacheTime  = sharedPreferencesHelper.getCacheTimeDuration()
 
         try{
             val cachePreferencesInt = cacheTime?.toInt() ?: 5 * 60
