@@ -24,24 +24,36 @@ import org.koin.core.context.startKoin
 import org.koin.dsl.koinApplication
 import org.koin.test.check.checkModules
 import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import br.com.jetpackstarter.CoroutineTestRule
+import br.com.jetpackstarter.model.dogsRepository.DogDatabase
+import br.com.jetpackstarter.runBlocking
+import io.reactivex.Single
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runBlockingTest
+import org.mockito.Mockito
+import org.mockito.Mockito.*
 
-
-
-
+@ExperimentalCoroutinesApi
 class DogsListViewModelTest : KoinTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
+
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    val coroutineTestRule = CoroutineTestRule()
 
     val dogsListViewModel: DogsListViewModel by inject()
 
     @Mock lateinit var loadingObserver: Observer<Boolean>
     @Mock lateinit var loadingErrorObserver: Observer<Boolean>
     @Mock lateinit var dogsObserver: Observer<List<DogBreed>>
+
 
     @Mock private lateinit var context: Context
 
@@ -52,6 +64,8 @@ class DogsListViewModelTest : KoinTest {
             androidContext(context)
             modules(Modules.all)
         }
+
+
     }
 
     @After
@@ -63,12 +77,26 @@ class DogsListViewModelTest : KoinTest {
     fun testFetchFromRemote() {
         dogsListViewModel.loading.observeForever(loadingObserver)
         dogsListViewModel.dogs.observeForever(dogsObserver)
-        //dogsListViewModel.dogsLoadError.observeForever(loadingErrorObserver)
 
         dogsListViewModel.fetchFromRemote()
 
         verify(loadingObserver).onChanged(true)
-        //verify(loadingErrorObserver).onChanged(false)
-        //verify(dogsObserver).onChanged()
     }
+
+    @ExperimentalCoroutinesApi
+    @Test
+    fun test() =
+        runBlocking {
+                val item1 = DogBreed("oi", "oi", "oi", "oi", "oi", "oi", "oi")
+                val item2 = DogBreed("oi", "oi", "oi", "oi", "oi", "oi", "oi")
+                val list = arrayListOf(item1, item2)
+
+                val listLong = arrayListOf(1L, 2L)
+
+                dogsListViewModel.dogs.observeForever(dogsObserver)
+                dogsListViewModel.storeDogsLocal(list)
+
+                verify(dogsObserver).onChanged(list)
+
+        }
 }

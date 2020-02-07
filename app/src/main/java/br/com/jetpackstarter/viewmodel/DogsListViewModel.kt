@@ -84,7 +84,7 @@ class DogsListViewModel(private val dogsService: DogsApiService,
         }
     }
 
-    private fun storeDogsLocal(list: List<DogBreed>){
+    fun storeDogsLocal(list: List<DogBreed>){
         viewModelScope.launch {
             dogDao.deleteAllDogs()
             val result = dogDao.insertAll(*list.toTypedArray())
